@@ -14,11 +14,6 @@ end
 % initialise options.
 opts = init_opts(opts);
 
-% X = multi_transpose(X);
-for tt = 1 : length(X)
-    X{tt} = X{tt}';
-end
-
 task_num  = length (X);
 dimension = size(X{1}, 2);
 funcVal = [];
