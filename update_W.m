@@ -11,12 +11,12 @@ if nargin < 5
     opts = [];
 end
 
-% initialize options.
+% initialise options.
 opts = init_opts(opts);
 
-X = multi_transpose(X);
+% X = multi_transpose(X);
 task_num  = length (X);
-dimension = size(X{1}, 1);
+dimension = size(X{1}, 2);
 funcVal = [];
 
 
@@ -138,12 +138,12 @@ W = Wzp;
         if opts.pFlag
             grad_W = zeros(size(W));
             parfor i = 1:task_num
-                grad_W(:, i) = X{i}*(X{i}' * W(:,i)-Y{i});
+                grad_W(:, i) = (X{i}') *(X{i} * W(:,i)-Y{i});
             end
         else
             grad_W = [];
             for i = 1:task_num
-                grad_W = cat(2, grad_W, X{i}*(X{i}' * W(:,i)-Y{i}) );
+                grad_W = cat(2, grad_W, (X{i}') *(X{i} * W(:,i)-Y{i}) );
             end
         end
 
@@ -155,11 +155,11 @@ W = Wzp;
         funcVal = 0;
         if opts.pFlag
             parfor i = 1: task_num
-                funcVal = funcVal + 0.5 * norm (Y{i} - X{i}' * W(:, i))^2;
+                funcVal = funcVal + 0.5 * norm (Y{i} - X{i} * W(:, i))^2;
             end
         else
             for i = 1: task_num
-                funcVal = funcVal + 0.5 * norm (Y{i} - X{i}' * W(:, i))^2;
+                funcVal = funcVal + 0.5 * norm (Y{i} - X{i} * W(:, i))^2;
             end
         end
         funcVal = funcVal + rho1 * norm(W*T,'fro')^2 ;
