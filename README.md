@@ -1,5 +1,5 @@
 # AutoTR
-Automatic Temporal Relation in Multi-Task Learning, KDD-2023
+Automatic Temporal Relation in Multi-Task Learning, accepted by KDD-2023
  
 
 
